@@ -71,15 +71,15 @@ print(demo_sensor.daily_means.describe())
 ## Defaults to searching within an 8 kilometer radius around the center of Brussels
 lat_Leuven = 50.879018
 lon_Leuven = 4.701167
-rad = 4
+rad_Leuven = 4
 
-near = luftdaten.search_proximity(lat=lat_Leuven, lon=lon_Leuven, radius=rad) # Set to Leuven in front of the city hall)
+near = luftdaten.search_proximity(lat=lat_Leuven, lon=lon_Leuven, radius=rad_Leuven) # Set to Leuven in front of the city hall)
 print(near)
 
 
 ## Sensors near Leuven
 
-(near_sensors, hourly_means, daily_means) = luftdaten.evaluate_near_sensors(lat=50.879018, lon=4.701167, radius=4, start_date="2017-12-01", end_date="2018-01-14",
+(near_sensors, hourly_means, daily_means) = luftdaten.evaluate_near_sensors(lat=lat_Leuven, lon=lon_Leuven, radius=rad_Leuven, start_date="2017-12-01", end_date="2018-01-14",
                                                  quiet=True)
 #near_sensors
 #hourly_means
