@@ -55,8 +55,10 @@ class Sensor:
         self.current_values = None
         self.measurements = None
         self.hourly_means = None
+        self.daily_means = None
         self.figs = {}
         self.figs_hourly = {}
+        self.figs_daily = {}
         self.update(**retrieval_kwargs)
 
     def __repr__(self):
@@ -167,6 +169,7 @@ class Sensor:
         else:
             self.measurements = None
             self.hourly_means = None
+            self.daily_means = None
             print("No data for sensor", self.sensor_id)
             return
 
@@ -177,6 +180,7 @@ class Sensor:
         self.measurements.sort_index(inplace=True)
         self.clean_data()
         self.calculate_hourly_means()
+        self.calculate_daily_means()
 
     def clean_data(self):
         """Remove invalid measurements.
@@ -223,6 +227,18 @@ class Sensor:
                              / resampler.count())
         self.hourly_means.index.name = "Period"
 
+    def calculate_daily_means(self, min_count=12):
+        """Calculate daily means.
+
+        Args:
+            min_count: minimum number of data points per day required
+                to calculate means
+        """
+        resampler = self.measurements.resample("d", kind="period")
+        self.daily_means = (resampler.sum(min_count=min_count)
+                             / resampler.count())
+        self.daily_means.index.name = "Period"
+
     def plot_measurements(self):
         """Plot data as time series.
 
@@ -265,6 +281,29 @@ class Sensor:
             plt.xticks(horizontalalignment="center")
         plt.show()
         return ax
+
+    def plot_daily_means(self):
+        """Plot data as time series.
+
+        Returns:
+            Matplotlib AxesSubplot
+        """
+        # TODO: Clean up x label format
+        for measure in self.daily_means:
+            self.figs_daily[measure], ax = plt.subplots()
+            title = ("Sensor {} - {} Daily Means"
+                     .format(self.sensor_id, measure.upper()))
+            (self.daily_means[measure]
+             .plot(y="value", figsize=(12, 8), ax=ax, title=title, rot=90))
+            ax.set(xlabel="Timestamp",
+                   ylabel="Concentration in µg/m³",
+                   ylim=(0, None))
+            # ax.xaxis.set_major_formatter(_date_formatter)
+            # FIXME: Shows date as 1146-12-24
+            plt.xticks(horizontalalignment="center")
+        plt.show()
+        return ax
+
 
 
 def search_proximity(lat=50.848, lon=4.351, radius=8):
