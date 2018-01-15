@@ -28,10 +28,8 @@ demo_sensor = luftdaten.Sensor("6561", refresh_cache=True)
 # print(demo_sensor)
 # print(demo_sensor.metadata)
 
-print(demo_sensor.url)
-
-print(demo_sensor.current_values)
-
+print("The sensor's URL is: " + demo_sensor.url)
+print("The sensor currently reads for pm 2.5: " + str(demo_sensor.current_values['pm2.5']) + " and for pm 10: " + str(demo_sensor.current_values['pm10']))
 
 # Retrieve data history
 ## Data are retrieved from cache or server and then cleaned (see luftdaten.Sensor.clean_data).
@@ -43,21 +41,24 @@ demo_sensor.get_data(start_date="2017-12-01", end_date="2018-01-14")
 # Inspect, summarize and plot data
 
 
-print(demo_sensor.measurements)
+# print(demo_sensor.measurements)
 
-print(type(demo_sensor.measurements))
+print(demo_sensor.measurements.describe())
+# describe(demo_sensor.measurements)
 
-#describe(demo_sensor.measurements)
-
-demo_sensor.plot_measurements()
-
-
-#Inspect, summarize and plot hourly means
+# demo_sensor.plot_measurements()
 
 
-"""demo_sensor.hourly_means
-describe(demo_sensor.hourly_means)
-demo_sensor.plot_hourly_means()"""
+# Inspect, summarize and plot hourly means
+
+
+# demo_sensor.hourly_means
+print(demo_sensor.hourly_means.describe())
+#demo_sensor.plot_hourly_means()
+
+# Inspect, summarize and plot daily means
+#demo_sensor.plot_daily_means()
+print(demo_sensor.daily_means.describe())
 
 
 #Check distribution of sample intervals
@@ -68,15 +69,21 @@ demo_sensor.plot_hourly_means()"""
 
 # List sensors near a given location
 ## Defaults to searching within an 8 kilometer radius around the center of Brussels
-"""near = luftdaten.search_proximity()
-near"""
+lat_Leuven = 50.879018
+lon_Leuven = 4.701167
+rad = 4
+
+near = luftdaten.search_proximity(lat=lat_Leuven, lon=lon_Leuven, radius=rad) # Set to Leuven in front of the city hall)
+print(near)
 
 
-## Sensors near Antwerp
+## Sensors near Leuven
 
-
-"""luftdaten.search_proximity(lat=51.22, lon=4.41, radius=20)
-(near_sensors, hourly_means) = luftdaten.evaluate_near_sensors(start_date="2017-09-10",
-                                                 end_date="2017-09-13",
+(near_sensors, hourly_means, daily_means) = luftdaten.evaluate_near_sensors(lat=50.879018, lon=4.701167, radius=4, start_date="2017-12-01", end_date="2018-01-14",
                                                  quiet=True)
-hourly_means"""
+#near_sensors
+#hourly_means
+
+print(hourly_means.describe())
+#print(head(near_sensors))
+#print(head(hourly_means))
