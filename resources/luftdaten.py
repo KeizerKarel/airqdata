@@ -10,7 +10,7 @@ import pandas as pd
 from pandas.io.json import json_normalize
 from matplotlib import pyplot as plt
 
-from utils import (CACHE_DIR, retrieve, haversine, _date_formatter,
+from resources.utils import (CACHE_DIR, retrieve, haversine, _date_formatter,
                    _plotting_settings, _pandas_settings)
 
 # API URLs

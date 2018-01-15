@@ -12,9 +12,9 @@ import pandas as pd
 # run those modules by themselves from their directory.
 ("resources" in sys.path) or sys.path.append("resources")
 
-from resources import civiclabs
+#from resources import civiclabs
 from resources import luftdaten
-from resources import madavi
+#from resources import madavi
 from resources import irceline
 from resources.utils import haversine, describe
 

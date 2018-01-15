@@ -4,10 +4,13 @@
 
 import pandas as pd
 
-from utils import CACHE_DIR, retrieve
+from resources.utils import CACHE_DIR, retrieve
 
 SENSOR_SHEET_URL = ("https://docs.google.com/spreadsheets/d/1J8WTKryYjZHfBQrMS"
                     "Yjwj6uLOBmWWLftaTqeicKVfYE/export?format=csv")
+
+# TODO: Create Google docs sheet for Leuven and swap URL
+
 SENSOR_INFO_CACHE_FILE = CACHE_DIR + "/civic_labs_sensors.csv"
 
 
