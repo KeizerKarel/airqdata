@@ -9,7 +9,7 @@ pd.set_option("display.max_rows", 10)
 
 # Civic Labs Resources
 ## Download list of sensors from Civic Labs' Google sheet
-sensors = civiclabs.get_sensors(refresh_cache=True)
+sensors = civiclabs.get_sensor_info(refresh_cache=True)
 # print(sensors.head(4))
 
 # print(len(sensors))
@@ -35,7 +35,7 @@ print("The sensor currently reads for pm 2.5: " + str(demo_sensor.current_values
 ## Data are retrieved from cache or server and then cleaned (see luftdaten.Sensor.clean_data).
 
 
-demo_sensor.get_data(start_date="2017-12-01", end_date="2018-01-14")
+# demo_sensor.get_data(start_date="2017-12-01", end_date="2018-01-15")
 
 
 # Inspect, summarize and plot data
@@ -43,7 +43,7 @@ demo_sensor.get_data(start_date="2017-12-01", end_date="2018-01-14")
 
 # print(demo_sensor.measurements)
 
-print(demo_sensor.measurements.describe())
+# print(demo_sensor.measurements.describe())
 # describe(demo_sensor.measurements)
 
 # demo_sensor.plot_measurements()
@@ -53,12 +53,12 @@ print(demo_sensor.measurements.describe())
 
 
 # demo_sensor.hourly_means
-print(demo_sensor.hourly_means.describe())
+# print(demo_sensor.hourly_means.describe())
 #demo_sensor.plot_hourly_means()
 
 # Inspect, summarize and plot daily means
 #demo_sensor.plot_daily_means()
-print(demo_sensor.daily_means.describe())
+# print(demo_sensor.daily_means.describe())
 
 
 #Check distribution of sample intervals
@@ -79,11 +79,7 @@ print(near)
 
 ## Sensors near Leuven
 
-(near_sensors, hourly_means, daily_means) = luftdaten.evaluate_near_sensors(lat=lat_Leuven, lon=lon_Leuven, radius=rad_Leuven, start_date="2017-12-01", end_date="2018-01-14",
+(near_sensors, hourly_means, daily_means) = luftdaten.evaluate_near_sensors(lat=lat_Leuven, lon=lon_Leuven, radius=rad_Leuven, start_date="2017-12-01", end_date="2018-01-15",
                                                  quiet=True)
-#near_sensors
-#hourly_means
 
-print(hourly_means.describe())
-#print(head(near_sensors))
-#print(head(hourly_means))
+# print(hourly_means.describe())

@@ -390,18 +390,17 @@ def evaluate_near_sensors(start_date, end_date, lat=50.848, lon=4.351,
                              keys=[sensor.sensor_id for sensor in sensors])
     daily_means = daily_means.swaplevel(0, 1, axis=1)
     daily_means.sort_index(axis=1, level=0, inplace=True)
-    for measure in ("pm10", "pm2.5"):
-        (hourly_means.loc[:, measure]
-         .plot(figsize=(16, 9), title=measure.upper()))
-        plt.ylim(ymin=0)
-        plt.ylabel("Concentration in µg/m³")
-        plt.show()
-    for measure in ("pm10", "pm2.5"):
-        (daily_means.loc[:, measure]
-         .plot(figsize=(16, 9), title=measure.upper()))
-        plt.ylim(ymin=0)
-        plt.ylabel("Concentration in µg/m³")
-        plt.show()
 
-    # TODO: Fix display of plots so all come up together, not one by one
+
+    hourly_means.plot(figsize=(16, 9), legend=True, title = "Hourly means for particle concentrations")
+    plt.legend(("pm 10", "pm 2.5"))
+    plt.ylim(ymin=0)
+    plt.ylabel("Concentration in µg/m³")
+
+    daily_means.plot(kind = 'bar' ,figsize=(16, 9), legend=True, title = "Daily means for particle concentrations")
+    plt.legend(("pm 10", "pm 2.5"))
+    plt.ylim(ymin=0)
+    plt.ylabel("Concentration in µg/m³")
+    plt.show()
+
     return sensors, hourly_means, daily_means
