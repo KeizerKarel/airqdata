@@ -1,7 +1,8 @@
 # Air quality data
 
 These scripts retrieve and process air quality data, mainly on particulate
-matter, for the Civic Labs Belgium air quality project.
+matter, for the Civic Labs Belgium air quality project. 
+In this fork, location is set to Leuven, in front of the City Hall
 
 They
 * wrap the APIs of various sources, including Civic Labs Belgium's Google
